@@ -22,9 +22,7 @@ steps:
 - script: |
     ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --generate-name azure-devops --output json)
     echo Orka output:
-    echo $(ORKA_OUTPUT)
     VM_NAME=$(echo $ORKA_OUTPUT | jq -r '.[0].name')
-    echo $(VM_NAME)
     echo "##vso[task.setvariable variable=VM_NAME]$VM_NAME"
     echo ${{variables.VM_NAME}}
     sleep 15
