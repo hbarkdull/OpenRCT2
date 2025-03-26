@@ -19,8 +19,8 @@ variables:
   value: 8
 
 steps:
-- bash: |
-    ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --output json)
+- script: |
+    ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --generate-name azure-devops --output json)
     echo $(ORKA_OUTPUT)
     
     # Extract values using jq
