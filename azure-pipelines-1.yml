@@ -36,13 +36,14 @@ jobs:
 
   - job: ios_build
     pool: orka
-    
+    dependsOn: Deploy_Orka_VM
     steps:
     - script: |
         echo hello world
         
   - job: delete_VM
     pool: ubuntu
+    dependsOn: ios_build
       
     steps:
       - script: |
