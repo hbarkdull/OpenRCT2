@@ -20,7 +20,7 @@ variables:
 
 steps:
 - bash: |
-    orka3 vm list --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}}
+    orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}}
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
