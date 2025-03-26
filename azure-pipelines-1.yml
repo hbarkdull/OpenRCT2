@@ -18,6 +18,9 @@ variables:
 - name: memory
   value: 8
 
+- name: VM_NAME
+  value: None
+
 steps:
 - script: |
     ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --generate-name azure-devops --output json)
