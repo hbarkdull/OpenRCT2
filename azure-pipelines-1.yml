@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - develop
 
@@ -19,17 +14,13 @@ jobs:
 
     - name: memory
       value: 8
-      
 
     steps:
     - script: |
-        ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --generate-name azure-devops --output json)
+        ORKA_OUTPUT=$(orka3 vm deploy --image ${{ variables.image }} --cpu ${{ variables.cpu }} --memory ${{ variables.memory }} --generate-name azure-devops --output json)
         VM_NAME=$(echo $ORKA_OUTPUT | jq -r '.[0].name')
         echo "##vso[task.setvariable variable=VM_NAME;isOutput=true]$VM_NAME"
-
-    - script: |
-        echo $VM_NAME
-
+      name: set_vars
       displayName: "Deploy Orka VM"
 
   - job: ios_build
@@ -37,14 +28,16 @@ jobs:
     dependsOn: Deploy_Orka_VM
     steps:
     - script: |
-        echo hello world
-        
+        echo "Running build on VM $(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])"
+        echo "Build process would go here..."
+      displayName: "iOS Build"
+
   - job: delete_VM
     pool: ubuntu
     dependsOn: ios_build
       
     steps:
       - script: |
-          echo $(Deploy_Orka_VM.VM_NAME)
-          orka3 vm delete $(Deploy_Orka_VM.VM_NAME)
-
+          echo "Deleting VM: $(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])"
+          orka3 vm delete $(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])
+        displayName: "Delete Orka VM"
