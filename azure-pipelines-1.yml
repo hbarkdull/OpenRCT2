@@ -7,7 +7,7 @@ jobs:
 
     variables:
     - name: image
-      value: sonoma-90gb-orka3-arm 
+      value: azuredevops
 
     - name: cpu
       value: 4
