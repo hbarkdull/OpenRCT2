@@ -24,21 +24,25 @@ jobs:
       displayName: "Deploy Orka VM"
 
   - job: ios_build
-    pool: orka  # Ensure this matches your Orka agent pool name
+    pool: orka
     dependsOn: Deploy_Orka_VM
+    variables:
+      VM_NAME: $[ dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'] ]
+
     steps:
     - script: |
-        VM_NAME=$(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])
-        echo "Running build on VM: $VM_NAME"
+        echo "Running build on VM: $(VM_NAME)"
         echo "Build process would go here..."
       displayName: "iOS Build"
 
   - job: delete_VM
     pool: ubuntu
     dependsOn: ios_build
-      
+    variables:
+      VM_NAME: $[ dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'] ]
+
     steps:
-      - script: |
-          echo "Deleting VM: $(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])"
-          orka3 vm delete $(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])
-        displayName: "Delete Orka VM"
+    - script: |
+        echo "Deleting VM: $(VM_NAME)"
+        orka3 vm delete $(VM_NAME)
+      displayName: "Delete Orka VM"
