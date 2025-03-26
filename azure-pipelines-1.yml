@@ -20,6 +20,7 @@ jobs:
         ORKA_OUTPUT=$(orka3 vm deploy --image ${{ variables.image }} --cpu ${{ variables.cpu }} --memory ${{ variables.memory }} --generate-name azure-devops --output json)
         VM_NAME=$(echo $ORKA_OUTPUT | jq -r '.[0].name')
         echo "##vso[task.setvariable variable=VM_NAME;isOutput=true]$VM_NAME"
+        sleep 30
       name: set_vars
       displayName: "Deploy Orka VM"
 
