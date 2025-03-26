@@ -9,8 +9,8 @@ trigger:
 pool: ubuntu
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- bash: |
+    orka3 vm list
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
