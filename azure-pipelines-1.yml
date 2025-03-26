@@ -8,9 +8,19 @@ trigger:
 
 pool: ubuntu
 
+variables:
+- name: image
+  value: sonoma-90gb-orka3-arm 
+
+- name: cpu
+  value: 4
+
+- name: memory
+  value: 8
+
 steps:
 - bash: |
-    orka3 vm list
+    orka3 vm list --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}}
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
