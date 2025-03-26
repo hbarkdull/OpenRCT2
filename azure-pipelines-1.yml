@@ -19,9 +19,7 @@ jobs:
 
     - name: memory
       value: 8
-
-    - name: VM_NAME
-      value: None
+      
 
     steps:
     - script: |
