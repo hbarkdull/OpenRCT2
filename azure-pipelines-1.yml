@@ -47,5 +47,5 @@ jobs:
       
     steps:
       - script: |
-          orka3 vm delete $VM_NAME
+          orka3 vm delete $Deploy_Orka_VM.VM_NAME
 
