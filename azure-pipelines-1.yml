@@ -37,7 +37,9 @@ jobs:
 
   - job: delete_VM
     pool: ubuntu
-    dependsOn: ios_build
+    dependsOn: 
+    - ios_build
+    - Deploy_Orka_VM
     variables:
       VM_NAME: $[ dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'] ]
 
