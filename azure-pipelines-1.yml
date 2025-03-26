@@ -20,7 +20,7 @@ variables:
 
 steps:
 - script: |
-    ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.image}} --output json)
+    ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --output json)
     
     # Extract values using jq
     VM_NAME=$(echo $ORKA_OUTPUT | jq -r '.[0].name')
