@@ -24,11 +24,11 @@ steps:
     
     # Extract values using jq
     VM_NAME=$(echo $ORKA_OUTPUT | jq -r '.[0].name')
-
+    echo hello world
     # Set pipeline variables
     echo "##vso[task.setvariable variable=VM_NAME]$VM_NAME"
 
     echo ${{variables.VM_NAME}}
 
-  displayName: "Deploy Orka VM and Capture Output"
+  displayName: "Deploy Orka VM"
 
