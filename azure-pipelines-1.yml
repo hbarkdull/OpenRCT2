@@ -24,11 +24,12 @@ jobs:
       displayName: "Deploy Orka VM"
 
   - job: ios_build
-    pool: orka
+    pool: orka  # Ensure this matches your Orka agent pool name
     dependsOn: Deploy_Orka_VM
     steps:
     - script: |
-        echo "Running build on VM $(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])"
+        VM_NAME=$(dependencies.Deploy_Orka_VM.outputs['set_vars.VM_NAME'])
+        echo "Running build on VM: $VM_NAME"
         echo "Build process would go here..."
       displayName: "iOS Build"
 
