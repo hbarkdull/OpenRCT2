@@ -19,7 +19,7 @@ variables:
   value: 8
 
 steps:
-- script: |
+- bash: |
     ORKA_OUTPUT=$(orka3 vm deploy --image ${{variables.image}} --cpu ${{variables.cpu}} --memory ${{variables.memory}} --output json)
     echo $(ORKA_OUTPUT)
     
